@@ -1,0 +1,23 @@
+# Example job file for scrnaseq.cwl
+# Run with:  cwltool scrnaseq.cwl inputs.example.yml
+sample_id: pbmc_1k
+
+cdna_reads:
+  class: File
+  path: data/pbmc_1k_R2.fastq.gz
+
+barcode_reads:
+  class: File
+  path: data/pbmc_1k_R1.fastq.gz
+
+genome_dir:
+  class: Directory
+  path: reference/star_index
+
+whitelist:
+  class: File
+  path: reference/737K-august-2016.txt
+
+cb_length: 16
+umi_length: 12
+threads: 8
