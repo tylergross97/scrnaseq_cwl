@@ -1,0 +1,2 @@
+sample,cdna_reads,barcode_reads
+pbmc_1k,data/pbmc_1k_R2.fastq.gz,data/pbmc_1k_R1.fastq.gz

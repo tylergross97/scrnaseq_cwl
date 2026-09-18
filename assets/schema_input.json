@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/tylergross97/scrnaseq_cwl/master/assets/schema_input.json",
+  "title": "scrnaseq samplesheet schema",
+  "description": "Schema for each row of the input samplesheet",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "sample": {
+        "type": "string",
+        "pattern": "^\\S+$",
+        "errorMessage": "Sample name must be provided and cannot contain spaces",
+        "meta": ["id"]
+      },
+      "cdna_reads": {
+        "type": "string",
+        "format": "file-path",
+        "pattern": "^\\S+\\.f(ast)?q\\.gz$",
+        "errorMessage": "cDNA FASTQ (10x R2) must be provided, gzipped, ending .fastq.gz or .fq.gz"
+      },
+      "barcode_reads": {
+        "type": "string",
+        "format": "file-path",
+        "pattern": "^\\S+\\.f(ast)?q\\.gz$",
+        "errorMessage": "Barcode FASTQ (10x R1) must be provided, gzipped, ending .fastq.gz or .fq.gz"
+      }
+    },
+    "required": ["sample", "cdna_reads", "barcode_reads"]
+  }
+}

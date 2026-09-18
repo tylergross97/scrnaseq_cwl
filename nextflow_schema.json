@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/tylergross97/scrnaseq_cwl/master/nextflow_schema.json",
+  "title": "scrnaseq pipeline parameters",
+  "description": "Mock single-cell RNA-seq pipeline (STARsolo) — Nextflow port of scrnaseq_cwl",
+  "type": "object",
+  "$defs": {
+    "input_output_options": {
+      "title": "Input/output options",
+      "type": "object",
+      "fa_icon": "fas fa-terminal",
+      "description": "Define where the pipeline should find input data and save output data.",
+      "required": ["input", "outdir"],
+      "properties": {
+        "input": {
+          "type": "string",
+          "format": "file-path",
+          "mimetype": "text/csv",
+          "pattern": "^\\S+\\.csv$",
+          "schema": "assets/schema_input.json",
+          "description": "Path to a CSV samplesheet with columns: sample, cdna_reads, barcode_reads.",
+          "fa_icon": "fas fa-file-csv"
+        },
+        "outdir": {
+          "type": "string",
+          "format": "directory-path",
+          "default": "results",
+          "description": "The output directory where the results will be saved.",
+          "fa_icon": "fas fa-folder-open"
+        }
+      }
+    },
+    "reference_data": {
+      "title": "Reference data",
+      "type": "object",
+      "fa_icon": "fas fa-dna",
+      "description": "Shared reference inputs used by STARsolo.",
+      "required": ["genome_dir", "whitelist"],
+      "properties": {
+        "genome_dir": {
+          "type": "string",
+          "format": "directory-path",
+          "description": "Path to a pre-built STAR genome index directory.",
+          "fa_icon": "fas fa-folder"
+        },
+        "whitelist": {
+          "type": "string",
+          "format": "file-path",
+          "description": "Cell barcode whitelist (e.g. 10x 737K-august-2016.txt).",
+          "fa_icon": "fas fa-file"
+        }
+      }
+    },
+    "starsolo_options": {
+      "title": "STARsolo options",
+      "type": "object",
+      "fa_icon": "fas fa-sliders-h",
+      "description": "Cell-barcode chemistry parameters passed to STARsolo.",
+      "properties": {
+        "cb_length": {
+          "type": "integer",
+          "default": 16,
+          "minimum": 1,
+          "description": "Cell barcode length (--soloCBlen).",
+          "fa_icon": "fas fa-ruler-horizontal"
+        },
+        "umi_length": {
+          "type": "integer",
+          "default": 12,
+          "minimum": 1,
+          "description": "UMI length (--soloUMIlen).",
+          "fa_icon": "fas fa-ruler-horizontal"
+        }
+      }
+    }
+  },
+  "allOf": [
+    { "$ref": "#/$defs/input_output_options" },
+    { "$ref": "#/$defs/reference_data" },
+    { "$ref": "#/$defs/starsolo_options" }
+  ]
+}
