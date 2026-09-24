@@ -1,0 +1,88 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/tylergross97/scrnaseq_nf/main/nextflow_schema.json",
+    "title": "scrnaseq_nf pipeline parameters",
+    "description": "Nextflow port of the scrnaseq_cwl STARsolo single-cell RNA-seq demo pipeline.",
+    "type": "object",
+    "$defs": {
+        "input_output_options": {
+            "title": "Input/output options",
+            "type": "object",
+            "required": ["input", "outdir"],
+            "properties": {
+                "input": {
+                    "type": "string",
+                    "format": "file-path",
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "schema": "assets/schema_input.json",
+                    "description": "Path to the samplesheet CSV (columns: sample, fastq_1, fastq_2)."
+                },
+                "outdir": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "default": "results",
+                    "description": "Output directory where results are published."
+                }
+            }
+        },
+        "reference_data": {
+            "title": "Reference data",
+            "type": "object",
+            "description": "Provide either a pre-built star_index, or both fasta and gtf so the index can be built.",
+            "properties": {
+                "star_index": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "Pre-built STAR genome index directory. Skips index building when set."
+                },
+                "fasta": {
+                    "type": "string",
+                    "format": "file-path",
+                    "pattern": "^\\S+\\.fn?a(sta)?$",
+                    "description": "Genome FASTA. Used to build the STAR index when star_index is not provided."
+                },
+                "gtf": {
+                    "type": "string",
+                    "format": "file-path",
+                    "pattern": "^\\S+\\.gtf$",
+                    "description": "Gene annotation GTF. Used to build the STAR index when star_index is not provided."
+                },
+                "whitelist": {
+                    "type": "string",
+                    "format": "file-path",
+                    "description": "Cell barcode whitelist (e.g. 10x 737K barcodes). Optional; STARsolo uses 'None' when unset."
+                }
+            }
+        },
+        "starsolo_options": {
+            "title": "STARsolo options",
+            "type": "object",
+            "properties": {
+                "cb_length": {
+                    "type": "integer",
+                    "default": 16,
+                    "minimum": 1,
+                    "description": "Cell barcode length passed to STARsolo (--soloCBlen)."
+                },
+                "umi_length": {
+                    "type": "integer",
+                    "default": 12,
+                    "minimum": 1,
+                    "description": "UMI length passed to STARsolo (--soloUMIlen). Use 10 for 10x V2, 12 for 10x V3."
+                },
+                "genome_saindex_nbases": {
+                    "type": "integer",
+                    "default": 14,
+                    "minimum": 2,
+                    "description": "STAR --genomeSAindexNbases used when building the index. Lower for small genomes."
+                }
+            }
+        }
+    },
+    "allOf": [
+        { "$ref": "#/$defs/input_output_options" },
+        { "$ref": "#/$defs/reference_data" },
+        { "$ref": "#/$defs/starsolo_options" }
+    ]
+}
