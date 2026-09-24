@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="360" viewBox="0 0 900 360" font-family="Helvetica, Arial, sans-serif">
+  <title>scrnaseq_cwl Nextflow port — pipeline metro map</title>
+
+  <rect x="0" y="0" width="900" height="360" fill="#ffffff"/>
+  <text x="450" y="40" text-anchor="middle" font-size="22" font-weight="bold" fill="#1a1a1a">scRNA-seq (STARsolo) — pipeline metro map</text>
+
+  <!-- ============ Metro lines ============ -->
+  <!-- Reads line (blue): samplesheet -> FASTQC -> STARSOLO -->
+  <polyline points="120,140 300,140 480,140 660,140"
+            fill="none" stroke="#2f6fed" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Reference line (orange): fasta/gtf -> STAR_GENOMEGENERATE -> STARSOLO (merges up to y=140) -->
+  <polyline points="120,250 300,250 480,250 560,250 560,140"
+            fill="none" stroke="#f5911e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Report line (green): STARSOLO/FASTQC -> MULTIQC -->
+  <polyline points="660,140 780,140"
+            fill="none" stroke="#2fae66" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- ============ Stations ============ -->
+  <!-- helper: white circle with colored ring -->
+  <!-- Samplesheet -->
+  <circle cx="120" cy="140" r="13" fill="#ffffff" stroke="#2f6fed" stroke-width="5"/>
+  <text x="120" y="112" text-anchor="middle" font-size="13" fill="#1a1a1a">samplesheet</text>
+  <text x="120" y="98"  text-anchor="middle" font-size="11" fill="#777">CSV (reads)</text>
+
+  <!-- FASTQC -->
+  <circle cx="300" cy="140" r="15" fill="#ffffff" stroke="#2f6fed" stroke-width="5"/>
+  <text x="300" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">FASTQC</text>
+  <text x="300" y="98"  text-anchor="middle" font-size="11" fill="#777">per-lane QC</text>
+
+  <!-- STARSOLO (interchange: reads + reference) -->
+  <circle cx="660" cy="140" r="18" fill="#ffffff" stroke="#1a1a1a" stroke-width="5"/>
+  <text x="660" y="108" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">STARSOLO</text>
+  <text x="660" y="94"  text-anchor="middle" font-size="11" fill="#777">align + quantify</text>
+
+  <!-- MULTIQC -->
+  <circle cx="780" cy="140" r="15" fill="#ffffff" stroke="#2fae66" stroke-width="5"/>
+  <text x="780" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">MULTIQC</text>
+  <text x="780" y="98"  text-anchor="middle" font-size="11" fill="#777">report</text>
+
+  <!-- fasta/gtf -->
+  <circle cx="120" cy="250" r="13" fill="#ffffff" stroke="#f5911e" stroke-width="5"/>
+  <text x="120" y="285" text-anchor="middle" font-size="13" fill="#1a1a1a">fasta + gtf</text>
+  <text x="120" y="300" text-anchor="middle" font-size="11" fill="#777">reference</text>
+
+  <!-- STAR_GENOMEGENERATE -->
+  <circle cx="300" cy="250" r="15" fill="#ffffff" stroke="#f5911e" stroke-width="5"/>
+  <text x="300" y="285" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">STAR_GENOMEGENERATE</text>
+  <text x="300" y="300" text-anchor="middle" font-size="11" fill="#777">build index (optional)</text>
+
+  <!-- star_index shortcut station on the reference line -->
+  <circle cx="480" cy="250" r="10" fill="#ffffff" stroke="#f5911e" stroke-width="4"/>
+  <text x="480" y="285" text-anchor="middle" font-size="11" fill="#777">star_index</text>
+
+  <!-- ============ Legend ============ -->
+  <g transform="translate(600,300)">
+    <rect x="0" y="0" width="16" height="8" rx="4" fill="#2f6fed"/>
+    <text x="24" y="8" font-size="12" fill="#333">reads</text>
+    <rect x="90" y="0" width="16" height="8" rx="4" fill="#f5911e"/>
+    <text x="114" y="8" font-size="12" fill="#333">reference</text>
+    <rect x="200" y="0" width="16" height="8" rx="4" fill="#2fae66"/>
+    <text x="224" y="8" font-size="12" fill="#333">report</text>
+  </g>
+</svg>

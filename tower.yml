@@ -1,0 +1,8 @@
+# Seqera Platform run configuration
+# Declares the key output files surfaced as "Reports" in the run's Reports tab.
+# Paths are relative to the pipeline outdir (params.outdir).
+reports:
+  multiqc/multiqc_report.html:
+    display: "MultiQC report"
+  starsolo/*Log.final.out:
+    display: "STAR alignment summary"
